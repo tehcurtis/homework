@@ -8,11 +8,11 @@ There are two parts to the Software Engineer Homework set. Part 1 is written ans
 
 1. How can Memcache improve a site’s performance? Include a description about how data is stored and retrieved in a multi-node configuration.
 
-2. Please take a look at [this controller action](). Please tell us what you think of this code and how you would make it better.
+2. Please take a look at [this controller action](https://github.com/Hireology/homework/blob/master/some_controller.rb). Please tell us what you think of this code and how you would make it better.
 
 ##Part 2 - Programming Problems
 
-1. Write a program using regular expressions to parse a file where each line is of the following format:
+1) Write a program using regular expressions to parse a file where each line is of the following format:
 
 `$4.99 TXT MESSAGING – 250 09/29 – 10/28 4.99`
 
@@ -26,4 +26,4 @@ For each line in the input file, the program should output three pieces of infor
 }
 ```
 
-2. Please complete a set of classes for the problem described in [this blog post](http://www.adomokos.com/2012/10/the-organizations-users-roles-kata.html). Please do not create a database backend for this. Test doubles should work fine.
+2) Please complete a set of classes for the problem described in [this blog post](http://www.adomokos.com/2012/10/the-organizations-users-roles-kata.html). Please do not create a database backend for this. Test doubles should work fine.
