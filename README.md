@@ -1,16 +1,16 @@
-#Hireology Software Engineer Homework
+##Hireology Software Engineer Homework
 
-## Instructions
+### Instructions
 
 There are two parts to the Software Engineer Homework set. Part 1 is written answer, and Part 2 is a set of programmable problems. Please fork this repo to your GitHub account, add your work to the forked repo, and send a pull request when your work is complete.
 
-##Part 1 - Written Questions
+###Part 1 - Written Questions
 
 1. How can Memcache improve a site’s performance? Include a description about how data is stored and retrieved in a multi-node configuration.
 
 2. Please take a look at [this controller action](https://github.com/Hireology/homework/blob/master/some_controller.rb). Please tell us what you think of this code and how you would make it better.
 
-##Part 2 - Programming Problems
+###Part 2 - Programming Problems
 
 1) Write a program using regular expressions to parse a file where each line is of the following format:
 
