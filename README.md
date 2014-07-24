@@ -147,4 +147,9 @@ For each line in the input file, the program should output three pieces of infor
 }
 ```
 
+# To run my code for this solution do the following in the root of the project
+```ruby
+  ruby outputter.rb spec/test_data.txt
+```
+
 2) Please complete a set of classes for the problem described in [this blog post](http://www.adomokos.com/2012/10/the-organizations-users-roles-kata.html). Please do not create a database backend for this. Test doubles should work fine.
