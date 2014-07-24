@@ -65,51 +65,47 @@ RSpec.describe User do
     end
 
     context 'when the org is a child org' do
+      before do
+        @user = User.new
+        @admin_role = Role.new('admin')
+      end
+
       it 'is true if the user has admin access to the child org' do
-        user = User.new
-        role = Role.new('admin')
         child_org = ChildOrg.new
+        @user.add_role_and_org(@admin_role, child_org)
 
-        user.add_role_and_org(role, child_org)
-
-        expect(user.has_admin_access?(child_org)).to eq true
+        expect(@user.has_admin_access?(child_org)).to eq true
       end
 
       it "is true if the user has admin access to the child org's parent org" do
-        user = User.new
-        role = Role.new('admin')
         parent_org = Org.new
         child_org = ChildOrg.new(parent_org)
 
-        user.add_role_and_org(role, parent_org)
+        @user.add_role_and_org(@admin_role, parent_org)
 
-        expect(user.has_admin_access?(child_org)).to eq true
+        expect(@user.has_admin_access?(child_org)).to eq true
       end
 
       it 'is true if the user has admin access to the top-level root org' do
-        user = User.new
-        role = Role.new('admin')
         root_org = RootOrg.new
         parent_org = Org.new(root_org: root_org)
         child_org = ChildOrg.new(parent_org)
 
-        user.add_role_and_org(role, root_org)
+        @user.add_role_and_org(@admin_role, root_org)
 
-        expect(user.has_admin_access?(child_org)).to eq true
+        expect(@user.has_admin_access?(child_org)).to eq true
       end
 
       it 'is false if the user has admin access to the top-level root org, but has a denied role for the given child org' do
-        user = User.new
-        role = Role.new('admin')
         denied_role = Role.new('denied')
         root_org = RootOrg.new
         parent_org = Org.new(root_org: root_org)
         child_org = ChildOrg.new(parent_org)
 
-        user.add_role_and_org(role, root_org)
-        user.add_role_and_org(denied_role, child_org)
+        @user.add_role_and_org(@admin_role, root_org)
+        @user.add_role_and_org(denied_role, child_org)
 
-        expect(user.has_admin_access?(child_org)).to eq false
+        expect(@user.has_admin_access?(child_org)).to eq false
       end
     end
   end
