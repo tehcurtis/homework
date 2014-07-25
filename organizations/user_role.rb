@@ -7,5 +7,4 @@ class UserRole
     @org = opts[:org]
   end
 
-
 end
