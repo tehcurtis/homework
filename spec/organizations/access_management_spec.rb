@@ -1,8 +1,9 @@
 RSpec.describe AccessManager do
   describe '#has_admin_access?' do
     context 'when the org is a root org' do
+      let(:user) { User.new }
+
       it 'is true if the user has admin level access' do
-        user = User.new
         org = RootOrg.new
         role = Role.new('admin')
         user.add_role_and_org(role, org)
@@ -13,7 +14,6 @@ RSpec.describe AccessManager do
       end
 
       it 'is false if the user does not have admin access' do
-        user = User.new
         org = RootOrg.new
 
         access_manager = AccessManager.new(user)
@@ -23,8 +23,9 @@ RSpec.describe AccessManager do
     end
 
     context 'when the org is a mid-level org' do
+      let(:user) { User.new }
+
       it 'is true if the user has admin level access to the org' do
-        user = User.new
         org = Org.new
         role = Role.new('admin')
         user.add_role_and_org(role, org)
@@ -35,7 +36,6 @@ RSpec.describe AccessManager do
       end
 
       it "is is true if the user has admin level access to the org's root org" do
-        user = User.new
         root_org = RootOrg.new
         org = Org.new(root_org: root_org)
         role = Role.new('admin')
@@ -47,7 +47,6 @@ RSpec.describe AccessManager do
       end
 
       it 'is false if the user only has user access to the org' do
-        user = User.new
         root_org = RootOrg.new
         org = Org.new(root_org: root_org)
         role = Role.new('user')
@@ -59,7 +58,6 @@ RSpec.describe AccessManager do
       end
 
       it 'is false if the user only has user access to the root org' do
-        user = User.new
         root_org = RootOrg.new
         org = Org.new(root_org: root_org)
         role = Role.new('user')
@@ -72,16 +70,14 @@ RSpec.describe AccessManager do
     end
 
     context 'when the org is a child org' do
-      before do
-        @user = User.new
-        @admin_role = Role.new('admin')
-      end
+      let(:user) { User.new }
+      let(:admin_role) { Role.new('admin') }
 
       it 'is true if the user has admin access to the child org' do
         child_org = ChildOrg.new
-        @user.add_role_and_org(@admin_role, child_org)
+        user.add_role_and_org(admin_role, child_org)
 
-        access_manager = AccessManager.new(@user)
+        access_manager = AccessManager.new(user)
 
         expect(access_manager.has_admin_access?(child_org)).to eq true
       end
@@ -89,9 +85,9 @@ RSpec.describe AccessManager do
       it "is true if the user has admin access to the child org's parent org" do
         parent_org = Org.new
         child_org = ChildOrg.new(parent_org)
-        @user.add_role_and_org(@admin_role, parent_org)
+        user.add_role_and_org(admin_role, parent_org)
 
-        access_manager = AccessManager.new(@user)
+        access_manager = AccessManager.new(user)
 
         expect(access_manager.has_admin_access?(child_org)).to eq true
       end
@@ -100,9 +96,9 @@ RSpec.describe AccessManager do
         root_org = RootOrg.new
         parent_org = Org.new(root_org: root_org)
         child_org = ChildOrg.new(parent_org)
-        @user.add_role_and_org(@admin_role, root_org)
+        user.add_role_and_org(admin_role, root_org)
 
-        access_manager = AccessManager.new(@user)
+        access_manager = AccessManager.new(user)
 
         expect(access_manager.has_admin_access?(child_org)).to eq true
       end
@@ -112,10 +108,10 @@ RSpec.describe AccessManager do
         root_org = RootOrg.new
         parent_org = Org.new(root_org: root_org)
         child_org = ChildOrg.new(parent_org)
-        @user.add_role_and_org(@admin_role, root_org)
-        @user.add_role_and_org(denied_role, child_org)
+        user.add_role_and_org(admin_role, root_org)
+        user.add_role_and_org(denied_role, child_org)
 
-        access_manager = AccessManager.new(@user)
+        access_manager = AccessManager.new(user)
 
         expect(access_manager.has_admin_access?(child_org)).to eq false
       end
@@ -125,11 +121,10 @@ RSpec.describe AccessManager do
         root_org = RootOrg.new
         parent_org = Org.new(root_org: root_org)
         child_org = ChildOrg.new(parent_org)
+        user.add_role_and_org(admin_role, root_org)
+        user.add_role_and_org(user_role, child_org)
 
-        @user.add_role_and_org(@admin_role, root_org)
-        @user.add_role_and_org(user_role, child_org)
-
-        access_manager = AccessManager.new(@user)
+        access_manager = AccessManager.new(user)
 
         expect(access_manager.has_admin_access?(child_org)).to eq false
       end
