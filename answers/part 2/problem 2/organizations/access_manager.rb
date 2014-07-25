@@ -10,13 +10,7 @@ class AccessManager
 
     return false if fails_admin_prerequisites?(org)
 
-    if org.is_a?(RootOrg)
-      accessible_orgs.include?(org)
-    elsif org.is_a?(Org)
-      accessible_orgs.include?(org) || accessible_orgs.include?(org.root_org)
-    elsif org.is_a?(ChildOrg)
-      accessible_orgs.include?(org) || accessible_orgs.include?(org.parent_org) || accessible_orgs.include?(org.parent_org.root_org)
-    end
+    can_access_org?(accessible_orgs, org)
   end
 
   def has_user_access?(org)
@@ -24,6 +18,12 @@ class AccessManager
 
     return false if fails_user_prerequisites?(org)
 
+    can_access_org?(accessible_orgs, org)
+  end
+
+  private
+
+  def can_access_org?(accessible_orgs, org)
     if org.is_a?(RootOrg)
       accessible_orgs.include?(org)
     elsif org.is_a?(Org)
@@ -32,8 +32,6 @@ class AccessManager
       accessible_orgs.include?(org) || accessible_orgs.include?(org.parent_org) || accessible_orgs.include?(org.parent_org.root_org)
     end
   end
-
-  private
 
   def fails_admin_prerequisites?(org)
     accessible_admin_orgs == [] || denied_orgs.include?(org) || accessible_user_orgs.include?(org)
