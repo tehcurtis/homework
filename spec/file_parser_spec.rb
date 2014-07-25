@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 RSpec.describe FileParser do
   describe '#load_file' do
     let(:data) { '$4.99 TXT MESSAGING - 250 09/20 - 10/28 4.99' }
