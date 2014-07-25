@@ -29,7 +29,7 @@ class AccessManager
   def has_user_access?(org)
     accessible_orgs = user.roles_and_orgs['user']
     return false if accessible_orgs.nil?
-    return false if denied_orgs && denied_orgs.include?(org)
+    return false if denied_orgs.include?(org)
 
     if org.is_a?(RootOrg)
       accessible_orgs.include?(org)
