@@ -1,9 +1,8 @@
 class AccessManager
-  attr_reader :user, :org
+  attr_reader :user
 
-  def initialize(user, org)
+  def initialize(user)
     @user = user
-    @org = org
   end
 
   def denied_orgs

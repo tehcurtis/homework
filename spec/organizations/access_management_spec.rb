@@ -7,7 +7,7 @@ RSpec.describe AccessManager do
         role = Role.new('admin')
         user.add_role_and_org(role, org)
 
-        access_manager = AccessManager.new(user, org)
+        access_manager = AccessManager.new(user)
 
         expect(access_manager.has_admin_access?(org)).to eq true
       end
@@ -16,7 +16,7 @@ RSpec.describe AccessManager do
         user = User.new
         org = RootOrg.new
 
-        access_manager = AccessManager.new(user, org)
+        access_manager = AccessManager.new(user)
 
         expect(access_manager.has_admin_access?(org)).to eq false
       end
@@ -29,7 +29,7 @@ RSpec.describe AccessManager do
         role = Role.new('admin')
         user.add_role_and_org(role, org)
 
-        access_manager = AccessManager.new(user, org)
+        access_manager = AccessManager.new(user)
 
         expect(access_manager.has_admin_access?(org)).to eq true
       end
@@ -41,7 +41,7 @@ RSpec.describe AccessManager do
         role = Role.new('admin')
         user.add_role_and_org(role, root_org)
 
-        access_manager = AccessManager.new(user, org)
+        access_manager = AccessManager.new(user)
 
         expect(access_manager.has_admin_access?(org)).to eq true
       end
@@ -53,7 +53,7 @@ RSpec.describe AccessManager do
         role = Role.new('user')
         user.add_role_and_org(role, org)
 
-        access_manager = AccessManager.new(user, org)
+        access_manager = AccessManager.new(user)
 
         expect(access_manager.has_admin_access?(org)).to eq false
       end
@@ -65,7 +65,7 @@ RSpec.describe AccessManager do
         role = Role.new('user')
         user.add_role_and_org(role, org)
 
-        access_manager = AccessManager.new(user, org)
+        access_manager = AccessManager.new(user)
 
         expect(access_manager.has_admin_access?(org)).to eq false
       end
@@ -81,7 +81,7 @@ RSpec.describe AccessManager do
         child_org = ChildOrg.new
         @user.add_role_and_org(@admin_role, child_org)
 
-        access_manager = AccessManager.new(@user, child_org)
+        access_manager = AccessManager.new(@user)
 
         expect(access_manager.has_admin_access?(child_org)).to eq true
       end
@@ -91,7 +91,7 @@ RSpec.describe AccessManager do
         child_org = ChildOrg.new(parent_org)
         @user.add_role_and_org(@admin_role, parent_org)
 
-        access_manager = AccessManager.new(@user, parent_org)
+        access_manager = AccessManager.new(@user)
 
         expect(access_manager.has_admin_access?(child_org)).to eq true
       end
@@ -102,7 +102,7 @@ RSpec.describe AccessManager do
         child_org = ChildOrg.new(parent_org)
         @user.add_role_and_org(@admin_role, root_org)
 
-        access_manager = AccessManager.new(@user, root_org)
+        access_manager = AccessManager.new(@user)
 
         expect(access_manager.has_admin_access?(child_org)).to eq true
       end
@@ -115,7 +115,7 @@ RSpec.describe AccessManager do
         @user.add_role_and_org(@admin_role, root_org)
         @user.add_role_and_org(denied_role, child_org)
 
-        access_manager = AccessManager.new(@user, root_org)
+        access_manager = AccessManager.new(@user)
 
         expect(access_manager.has_admin_access?(child_org)).to eq false
       end
@@ -129,7 +129,7 @@ RSpec.describe AccessManager do
         @user.add_role_and_org(@admin_role, root_org)
         @user.add_role_and_org(user_role, child_org)
 
-        access_manager = AccessManager.new(@user, child_org)
+        access_manager = AccessManager.new(@user)
 
         expect(access_manager.has_admin_access?(child_org)).to eq false
       end
@@ -143,7 +143,7 @@ RSpec.describe AccessManager do
       root_org = RootOrg.new
       user.add_role_and_org(user_role, root_org)
 
-      access_manager = AccessManager.new(user, root_org)
+      access_manager = AccessManager.new(user)
 
       expect(access_manager.has_user_access?(root_org)).to be true
     end
