@@ -5,7 +5,8 @@ RSpec.describe FileParser do
     let(:data) { '$4.99 TXT MESSAGING - 250 09/20 - 10/28 4.99' }
 
     before do
-      @output = FileParser.new(data).parse
+      mock_stdout = double(:stdout, print: nil)
+      @output = FileParser.new(data, mock_stdout).parse
     end
 
     it 'is able to find the price' do

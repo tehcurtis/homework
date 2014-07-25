@@ -1,14 +1,14 @@
 require 'json'
 
 class FileParser
-  def self.run(data)
-    new(data).parse
+  def self.run(data, stdout=$stdout)
+    new(data, stdout).parse
   end
 
-  attr_reader :data
+  attr_reader :data, :stdout
 
-  def initialize(data)
-    @data = data
+  def initialize(data, stdout)
+    @data, @stdout = data, stdout
   end
 
   def parse
@@ -22,8 +22,10 @@ class FileParser
         date_range: date_range,
         price: price
       }
-      print JSON.pretty_generate hash
-      print "\n"
+
+      stdout.print JSON.pretty_generate hash
+      stdout.print "\n"
+
       collected_info << {price: price, date_range: date_range, feature: feature}
     end
 
