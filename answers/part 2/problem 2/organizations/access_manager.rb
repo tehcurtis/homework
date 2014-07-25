@@ -36,12 +36,12 @@ class AccessManager
   private
 
   def fails_admin_prerequisites?(org)
-    accessible_admin_orgs.nil? || denied_orgs.include?(org) || accessible_user_orgs.include?(org)
+    accessible_admin_orgs == [] || denied_orgs.include?(org) || accessible_user_orgs.include?(org)
   end
 
   def fails_user_prerequisites?(org)
     accessible_orgs = user.roles_and_orgs['user']
-    accessible_orgs.nil? || denied_orgs.include?(org)
+    accessible_orgs == [] || denied_orgs.include?(org)
   end
 
   def denied_orgs
